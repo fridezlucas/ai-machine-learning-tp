@@ -65,11 +65,6 @@ if __name__ == "__main__":
               "unbalanced_with_load",
               "unbalanced_with_load_electric_fault"]
 
-    y_train = []
-    # X_train_df = pd.DataFrame()
-
-    y_test = []
-    # X_test_df = pd.DataFrame()
     X = []
     y = []
 
