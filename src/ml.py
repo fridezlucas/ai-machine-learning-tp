@@ -44,14 +44,7 @@ def dataExploration(df, df2):
     print(X_train[0])
     print(X_train[1])
 
-
-if __name__ == "__main__":
-    df = pd.read_csv("../data/orange_75_balanced_no_load_electric_fault.csv",
-                     header=None, names=["acc1", "acc2", "acc3"])
-    df2 = pd.read_csv("../data/orange_75_balanced_no_load.csv",
-                      header=None, names=["acc1", "acc2", "acc3"])
-    # dataExploration(df, df2)
-
+def get_data_from_files():
     # Model / data parameters
     num_classes = 8
 
@@ -74,7 +67,7 @@ if __name__ == "__main__":
                 df = pd.read_csv(
                     "../data/orange_"+j+"_"+labels[i]+".csv", header=None, names=["acc1", "acc2", "acc3"])
                 tmp = df.to_numpy()
-                window_size = 100
+                window_size = 1000
                 for k in range(0, df.shape[0]-window_size*2, window_size):
                     ac1 = df[k:k+window_size]['acc1']
                     ac2 = df[k:k+window_size]['acc2']
@@ -93,6 +86,19 @@ if __name__ == "__main__":
 
     X = np.array(X)
     y = np.array(y)
+
+    return X, y
+
+
+if __name__ == "__main__":
+    df = pd.read_csv("../data/orange_75_balanced_no_load_electric_fault.csv",
+                     header=None, names=["acc1", "acc2", "acc3"])
+    df2 = pd.read_csv("../data/orange_75_balanced_no_load.csv",
+                      header=None, names=["acc1", "acc2", "acc3"])
+    # dataExploration(df, df2)
+
+    X, y = get_data_from_files()
+    
     X_train,  X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.2, random_state=True, shuffle=True)
 
     # Scaling the dataset
